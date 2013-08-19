@@ -1,0 +1,16 @@
+bin/
+obj/
+AppPackages/
+*.suo
+*.csproj.user
+TestResults/
+
+*.nupkg
+packages/*
+!packages/repositories.config
+
+Thumbs.db
+
+CalcSharp_StoreKey.pfx
+CalcSharp_TemporaryKey.pfx
+Package.StoreAssociation.xml

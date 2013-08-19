@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="62345PieterDeRycke.Calc" Publisher="CN=5C3D64D1-CFB0-48B3-97A4-E512158C8C18" Version="1.0.0.0" />
+  <Properties>
+    <DisplayName>Calc#</DisplayName>
+    <PublisherDisplayName>Pieter De Rycke</PublisherDisplayName>
+    <Logo>Assets\StoreLogo.png</Logo>
+  </Properties>
+  <Prerequisites>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
+  </Prerequisites>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="CalcSharp.App">
+      <VisualElements DisplayName="Calc#" SmallLogo="Assets\SmallLogo.png" Description="Calc# is a user friendly calculator for tablets that supports variables and various mathematical functions. The design is inspired on the principle less is more." ForegroundText="light" BackgroundColor="#464646" Logo="Assets\Logo.png">
+        <DefaultTile ShowName="allLogos" ShortName="Calc#" />
+        <SplashScreen Image="Assets\SplashScreen.png" />
+        <InitialRotationPreference>
+          <Rotation Preference="landscape" />
+        </InitialRotationPreference>
+      </VisualElements>
+    </Application>
+  </Applications>
+</Package>

@@ -74,12 +74,15 @@ namespace CalcSharp.ViewModels
                     }
                     catch (FormatException)
                     {
-                        if (Result != "")
-                            Result += "\n";
-                        Result += string.Format("Please provide a numeric value for variable \"{0}\".", variable.Name);
+                        if (Error != "")
+                            Error += "\n";
+                        Error += string.Format("Please provide a numeric value for variable \"{0}\".", variable.Name);
                     }
                 }
             }
+
+            if (!string.IsNullOrEmpty(Error))
+                return; // There are errors, so we stop
 
             try
             {

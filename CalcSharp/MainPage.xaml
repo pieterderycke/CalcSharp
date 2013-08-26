@@ -32,7 +32,7 @@
             <TextBlock Margin="920,20,335,0" TextWrapping="Wrap" Text="History" VerticalAlignment="Top" Style="{StaticResource PageSubheaderTextStyle}"/>
             <TextBlock Margin="120,20,1091,0" TextWrapping="Wrap" Text="Calculation" VerticalAlignment="Top" Style="{StaticResource PageSubheaderTextStyle}"/>
             <TextBlock HorizontalAlignment="Left" Margin="120,80,0,0" TextWrapping="Wrap" Text="Formula:" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
-            <TextBox HorizontalAlignment="Left" Margin="120,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="720" Text="{Binding Formula, Mode=TwoWay}"/>
+            <TextBox HorizontalAlignment="Left" Margin="120,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="720" Text="{Binding Formula, Mode=TwoWay}"  TextChanged="FormulaTextBox_OnTextChanged"/>
             <TextBlock HorizontalAlignment="Left" Margin="120,150,0,0" TextWrapping="Wrap" Text="Variables:" VerticalAlignment="Top" Style="{StaticResource BasicTextStyle}"/>
 
             <Grid Margin="120,180,0,0">
@@ -44,12 +44,12 @@
                 <ItemsControl HorizontalAlignment="Left" Width="720" VerticalAlignment="Top"
                               Grid.Row="0"
                               MaxHeight="300"
-                              ItemsSource="{Binding Variables}">
+                              ItemsSource="{Binding Variables}" IsTabStop="False">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <toolkit:WatermarkTextBox Width="300" Text="{Binding Name, Mode=TwoWay}" Margin="0,5,10,5" Watermark="Name..."/>
-                                <toolkit:WatermarkTextBox Width="300" Text="{Binding Value, Mode=TwoWay}" Margin="0,5,0,5" InputScope="Number" Watermark="Value..."/>
+                                <toolkit:WatermarkTextBox Width="300" Text="{Binding Name, Mode=TwoWay}" Margin="0,5,10,5" Watermark="Name..." TextChanged="VariableNameTextBox_TextChanged"/>
+                                <toolkit:WatermarkTextBox Width="300" Text="{Binding Value, Mode=TwoWay}" Margin="0,5,0,5" InputScope="Number" Watermark="Value..." TextChanged="VariableValueTextBox_TextChanged"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

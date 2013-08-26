@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows.Input;
 using CalcSharp.ViewModels;
+using WinRTXamlToolkit.Controls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,23 +29,57 @@ namespace CalcSharp
         public MainPage()
         {
             this.InitializeComponent();
-
-            //this.DataContext = new MainViewModel();
         }
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        /// <param name="e">Event data that describes how this page was reached.  The Parameter
-        /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            Dispatcher.AcceleratorKeyActivated += OnAcceleratorKeyActivated;
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            Dispatcher.AcceleratorKeyActivated -= OnAcceleratorKeyActivated;
+        }
+
+        private void OnAcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs args)
+        {
+            // Ensures the ENTER key always runs the same code as your default button.
+            if (args.EventType == CoreAcceleratorKeyEventType.KeyDown && args.VirtualKey == VirtualKey.Enter)
+            {
+                ICommand calculateCommand = ((MainViewModel) DataContext).Calculate;
+
+                if(calculateCommand.CanExecute(null))
+                    calculateCommand.Execute(null);
+            }
         }
 
         private void ListViewBase_OnItemClick(object sender, ItemClickEventArgs e)
         {
             // TODO: remove quick hack
             ((HistoryItemViewModel)e.ClickedItem).Display.Execute(null);
+        }
+
+        private void FormulaTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            // No UpdateSourceTrigger in Windows 8 currently ...
+            string newFormula = ((TextBox) sender).Text;
+            ((MainViewModel) DataContext).Formula = newFormula;
+        }
+
+        private void VariableNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // No UpdateSourceTrigger in Windows 8 currently ...
+            WatermarkTextBox nameTextBox = (WatermarkTextBox)sender;
+            string newName = nameTextBox.Text;
+            ((VariableViewModel) nameTextBox.DataContext).Name = newName;
+        }
+
+        private void VariableValueTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            // No UpdateSourceTrigger in Windows 8 currently ...
+            WatermarkTextBox valueTextBox = (WatermarkTextBox)sender;
+            string newValue = valueTextBox.Text;
+            ((VariableViewModel)valueTextBox.DataContext).Value = newValue;
         }
     }
 }
